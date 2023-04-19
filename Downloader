@@ -1,0 +1,24 @@
+##Small program that opens all zip files in a directory and extracts jpg files within them.
+##To reduce the pain of downloading a 100 jpgs of nearmap imagery for analysis.
+## Written by Shuhao Lim (22551326), UWA. 19/04/2023
+
+##Importing required modules
+from zipfile import ZipFile
+import os
+import glob
+
+#Get path name base for use
+basepath = r"C:\Users\dolph\OneDrive\Desktop\VsCode Quickstart\Test\Nearmap_Georeferenced_images"
+newpath = r"C:\Users\dolph\OneDrive\Desktop\VsCode Quickstart\Test"
+
+#Now iterate through the flist to open all the zip files in that folder, and extract the 
+#jpg file from each of them.
+
+for name in glob.iglob(os.path.join(basepath,"*.zip")):
+    #Gets the jpg file name in the file
+    jpgfile_name = os.path.splitext(os.path.basename(name))[0] + ".jpg" 
+    #make the zipfile a ZipFile object
+    zf = ZipFile(name)
+    #Extract jpg file and put it in same folder
+    zf.extract(jpgfile_name,newpath)
+    zf.close()
